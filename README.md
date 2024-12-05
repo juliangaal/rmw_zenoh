@@ -1,3 +1,14 @@
+-----
+
+This fork provides a dockerized demo of zenoh with two ros2 jazzy nodes
+
+```
+git clone git@github.com:juliangaal/rmw_zenoh.git
+docker compose up --build
+```
+
+-----
+
 # rmw_zenoh
 
 [![build](https://github.com/ros2/rmw_zenoh/actions/workflows/build.yaml/badge.svg)](https://github.com/ros2/rmw_zenoh/actions/workflows/build.yaml)

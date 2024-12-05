@@ -1,0 +1,39 @@
+services:
+  base:
+    build: .
+    image: zenoh:latest
+    volumes:
+      - /dev/shm:/dev/shm
+    stdin_open: true
+    tty: true
+    network_mode: host
+    environment:
+      - ROS_DOMAIN_ID=10
+      - RMW_IMPLEMENTATION=rmw_zenoh_cpp
+
+  router:
+    extends:
+      service: base
+    image: zenoh:latest
+    container_name: router
+    command: ros2 run rmw_zenoh_cpp rmw_zenohd
+
+  talker:
+    extends:
+      service: base
+    image: zenoh:latest
+    container_name: talker
+    command: ros2 run demo_nodes_cpp talker
+    depends_on:
+      - router
+
+  listener:
+    extends:
+      service: base
+    image: zenoh:latest
+    container_name: listener
+    command: ros2 run demo_nodes_cpp listener
+    depends_on:
+      - router
+      - talker
+
